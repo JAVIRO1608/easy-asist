@@ -1,0 +1,109 @@
+body {
+  margin: 0;
+  font-family: 'Nunito', sans-serif;
+  background-color: #f4f6f8;
+}
+
+.container {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+h1 {
+  font-size: 64px;
+  color: #00b0ff;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.divider {
+  width: 60%;
+  height: 3px;
+  background-color: black;
+  margin: 20px auto;
+  border-radius: 5px;
+}
+
+h2 {
+  font-size: 28px;
+  color: black;
+  margin-top: 20px;
+}
+
+p {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+
+/* Botones principales */
+.main-btn {
+  background-color: black;
+  color: white;
+  display: block;
+  width: 90%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+/* Sí / No */
+.options button {
+  display: block;
+  width: 90%;
+  max-width: 300px;
+  margin: 10px auto;
+  padding: 15px;
+  font-size: 18px;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.yes {
+  background-color: #43a047;
+}
+
+.no {
+  background-color: #e53935;
+}
+
+/* Navegación */
+.navigation {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Botón inicio */
+.home-black {
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Botón siguiente */
+.next-black {
+  background-color: black;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
