@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración de Red | EasyAssist</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --success: #16a34a;
+      --error: #dc2626;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+
+    body.fade-in { opacity: 1; }
+    body.fade-out { opacity: 0; }
+
+    .container {
+      background: var(--card);
+      width: 90%;
+      max-width: 520px;
+      padding: 48px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+      text-align: center;
+    }
+
+    .logo-container { margin-bottom: 32px; }
+    .logo-container img { height: 42px; width: auto; }
+
+    .title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px;
+      margin-bottom: 16px;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 17px;
+      color: var(--muted);
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+
+    /* Botones con estilo profesional neutro para opciones de Sí/No */
+    .btn.yes {
+      background: var(--accent);
+      color: white;
+    }
+    .btn.yes:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+    .btn.no {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn.no:hover { background: var(--accent-light); color: var(--accent); border-color: var(--accent); }
+
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-btn:hover { color: var(--accent); }
+  </style>
+</head>
+<body class="fade-in">
+
+  <main class="container">
+
+    <div class="logo-container">
+      <img src="imagenes/easyassist.png" alt="EasyAssist Logo">
+    </div>
+
+    <h1 class="title">Dispositivos adicionales</h1>
+
+    <p class="subtitle">
+      ¿Dispone usted de <strong>repetidores de señal</strong> o amplificadores WiFi conectados en su domicilio?
+    </p>
+
+    <div class="options">
+      <button class="btn yes" onclick="go('repetidores_si.html')">
+        Sí, utilizo amplificadores
+      </button>
+
+      <button class="btn no" onclick="go('reinicio.html')">
+        No, solo utilizo el router principal
+      </button>
+    </div>
+
+    <footer class="nav-footer">
+      <button class="nav-btn" onclick="go('luces.html')">← Volver atrás</button>
+      <button class="nav-btn" onclick="go('index.html')">Ir al inicio</button>
+    </footer>
+
+  </main>
+
+  <script>
+    function go(url) {
+      document.body.classList.remove("fade-in");
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>

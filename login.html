@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EasyAssist · Acceso</title>
+
+  <link rel="stylesheet" href="/css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+
+<body>
+
+  <!-- Fondo -->
+  <div class="bg-orb a"></div>
+  <div class="bg-orb b"></div>
+  <div class="bg-orb c"></div>
+
+  <!-- Card principal -->
+  <div class="card">
+
+    <!-- BRAND -->
+    <div class="brand">
+      <div class="brand-icon">
+        <img src="/images/easyassist.png" alt="EasyAssist" width="36" height="36">
+      </div>
+      <span class="brand-name">EasyAssist</span>
+    </div>
+
+    <!-- TÍTULO -->
+    <h1>Bienvenido <span>a EasyAssist</span></h1>
+    <p class="subtitle">Accede o crea una cuenta para continuar</p>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" id="tab-login">Iniciar sesión</button>
+      <button class="tab-btn" id="tab-register">Registrarse</button>
+    </div>
+
+    <!-- MENSAJES -->
+    <div id="msg" class="msg"></div>
+
+    <!-- ================= LOGIN ================= -->
+    <section id="login-section" class="form-section active">
+
+      <div class="field">
+        <label>Email</label>
+        <div class="input-wrap">
+          <input type="email" id="login-email" placeholder="tu@email.com">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <div class="input-wrap">
+          <input type="password" id="login-password" placeholder="••••••••">
+        </div>
+      </div>
+
+      <button class="btn-primary" id="btn-login">
+        Entrar
+      </button>
+
+    </section>
+
+    <!-- ================= REGISTER ================= -->
+    <section id="register-section" class="form-section">
+
+      <div class="field">
+        <label>Nombre</label>
+        <input type="text" id="reg-name" placeholder="Tu nombre">
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input type="email" id="reg-email" placeholder="tu@email.com">
+      </div>
+
+      <div class="field">
+        <label>Contraseña</label>
+        <input type="password" id="reg-password" placeholder="Mínimo 8 caracteres">
+      </div>
+
+      <div class="field">
+        <label>Repetir contraseña</label>
+        <input type="password" id="reg-password2" placeholder="Repite contraseña">
+      </div>
+
+      <button class="btn-primary" id="btn-register">
+        Crear cuenta
+      </button>
+
+    </section>
+
+    <!-- FOOTER -->
+    <div class="card-footer">
+      <span id="footer-text">¿No tienes cuenta? Regístrate</span>
+    </div>
+
+  </div>
+
+  <script src="/js/auth.js"></script>
+
+  <script>
+  window.addEventListener("load", () => {
+    document.body.classList.add("fade-in");
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyAssist</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      opacity: 1;
+      transition: opacity 0.25s ease;
+    }
+
+    body.fade-out {
+      opacity: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="container">
+
+    <!-- LOGO -->
+    <div class="logo-container">
+      <img src="imagenes/easyassist.png" alt="EasyAssist">
+    </div>
+
+    <div class="divider"></div>
+
+    <h2 class="title">Enciende el router</h2>
+
+    <p class="subtitle">
+      El router está apagado o no tiene corriente.<br><br>
+      Enciéndelo y espera unos segundos hasta que las luces se estabilicen.
+    </p>
+
+    <!-- NAVEGACIÓN -->
+    <div class="nav">
+
+      <button class="nav-btn" onclick="go('index.html')">
+        ⬅ Inicio
+      </button>
+
+      <button class="nav-btn" onclick="go('internet.html')">
+        ⬅ Atrás
+      </button>
+
+    </div>
+
+  </main>
+
+  <script>
+    function go(url) {
+      document.body.classList.add("fade-out");
+
+      setTimeout(() => {
+        window.location.href = url;
+      }, 200);
+    }
+  </script>
+
+  <script>
+  window.addEventListener("load", () => {
+    document.body.classList.add("fade-in");
+  });
+</script>
+
+</body>
+</html>

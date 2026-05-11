@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificar Cables | EasyAssist</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --yes: #16a34a; /* Verde para confirmación */
+      --no: #dc2626;  /* Rojo para problema detectado */
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    body.fade-in { opacity: 1; }
+    body.fade-out { opacity: 0; }
+
+    .container {
+      background: var(--card);
+      width: 90%;
+      max-width: 500px;
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+      text-align: center;
+    }
+
+    .logo-container { margin-bottom: 32px; }
+    .logo-container img { height: 40px; width: auto; }
+
+    .title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .subtitle {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* CONTENEDOR DE BOTONES */
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 18px;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: transform 0.2s, background 0.2s;
+      font-family: inherit;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn.yes {
+      background: var(--yes);
+      color: white;
+    }
+    .btn.yes:hover { background: #15803d; }
+
+    .btn.no {
+      background: var(--no);
+      color: white;
+    }
+    .btn.no:hover { background: #b91c1c; }
+
+    /* NAVEGACIÓN */
+    .nav {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+
+    .nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+
+    .nav-btn:hover { color: var(--accent); }
+  </style>
+</head>
+<body class="fade-in">
+
+  <main class="container">
+
+    <div class="logo-container">
+      <img src="imagenes/easyassist.png" alt="EasyAssist">
+    </div>
+
+    <h2 class="title">¿Cómo están los cables?</h2>
+    <p class="subtitle">Después de revisarlos, ¿están bien conectados y se ven sin daños?</p>
+
+    <div class="options">
+      <button class="btn yes" onclick="go('luces.html')">
+        ✔ Todo parece estar bien
+      </button>
+
+      <button class="btn no" onclick="go('cable_dañado.html')">
+        ✖ He visto algún daño o error
+      </button>
+    </div>
+
+    <div class="nav">
+      <button class="nav-btn" onclick="go('internet.html')">
+        ← Volver al paso anterior
+      </button>
+    </div>
+
+  </main>
+
+  <script>
+    function go(url) {
+      document.body.classList.remove("fade-in");
+      document.body.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = url;
+      }, 300);
+    }
+  </script>
+
+</body>
+</html>
