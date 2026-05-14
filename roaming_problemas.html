@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Problemas con la itinerancia | EasyAssist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #2563eb; --accent-light: #eff6ff; --accent-border: #bfdbfe; --text: #0f172a; --muted: #64748b; --border: #e2e8f0; --bg: #f8fafc; --card: #ffffff; --green: #16a34a; --red: #dc2626; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; opacity: 0; animation: fadeIn 0.5s ease forwards 0.1s; transition: opacity 0.3s ease; }
+    body.fade-out { opacity: 0 !important; animation: none; }
+    @keyframes fadeIn { to { opacity: 1; } }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; border-bottom: 1px solid var(--border); background: white; position: sticky; top: 0; z-index: 10; }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    .nav-logo img { height: 36px; width: auto; }
+    .nav-back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; color: var(--muted); background: none; border: none; cursor: pointer; padding: 8px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; transition: background 0.2s, color 0.2s; }
+    .nav-back:hover { background: var(--accent-light); color: var(--accent); }
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 60px 32px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 40px; width: 100%; max-width: 480px; box-shadow: 0 4px 24px rgba(0,0,0,0.05); text-align: center; }
+    .progress { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 32px; }
+    .step-dot { width: 8px; height: 8px; border-radius: 99px; background: var(--border); }
+    .step-dot.done { background: var(--green); }
+    .step-dot.active { background: var(--accent); width: 24px; }
+    .step-icon { width: 64px; height: 64px; background: var(--accent-light); border: 1px solid var(--accent-border); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 30px; margin: 0 auto 24px; }
+    .step-label { font-size: 12px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 10px; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: clamp(24px, 4vw, 32px); letter-spacing: -0.5px; margin-bottom: 12px; }
+    .subtitle { font-size: 16px; color: var(--muted); line-height: 1.75; margin-bottom: 24px; }
+    .steps { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; text-align: left; }
+    .step-item { display: flex; align-items: flex-start; gap: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; }
+    .step-num { width: 28px; height: 28px; background: var(--accent); color: white; border-radius: 99px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+    .step-item p { font-size: 14px; color: var(--text); line-height: 1.6; padding-top: 3px; }
+    .options { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+    .btn { width: 100%; padding: 16px 20px; border: 1px solid transparent; border-radius: 12px; font-size: 15px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: 'DM Sans', sans-serif; transition: transform 0.15s, box-shadow 0.15s, background 0.15s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.1); }
+    .btn:active { transform: scale(0.98); box-shadow: none; }
+    .btn.yes { background: var(--green); color: white; }
+    .btn.yes:hover { background: #15803d; }
+    .btn.no { background: var(--red); color: white; }
+    .btn.no:hover { background: #b91c1c; }
+    hr { border: none; border-top: 1px solid var(--border); margin-bottom: 16px; }
+    .nav-footer { display: flex; justify-content: space-between; align-items: center; }
+    .btn-back, .btn-home { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 500; color: var(--muted); background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: color 0.2s; }
+    .btn-back:hover { color: var(--accent); }
+    .btn-home:hover { color: var(--accent); }
+    footer { border-top: 1px solid var(--border); padding: 20px 48px; text-align: center; font-size: 13px; color: var(--muted); background: white; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="presentacion.html" class="nav-logo"><img src="imagenes/easyassist.png" alt="EasyAssist"></a>
+    <button class="nav-back" onclick="go('roaming_so.html')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver
+    </button>
+  </nav>
+  <main>
+    <div class="card">
+      <div class="progress">
+        <div class="step-dot done"></div>
+        <div class="step-dot done"></div>
+        <div class="step-dot active"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+        <div class="step-dot"></div>
+      </div>
+      <div class="step-icon">⚙️</div>
+      <p class="step-label">Paso 3 · Verificar itinerancia</p>
+      <h1>¿Tiene la itinerancia activada?</h1>
+      <p class="subtitle">Compruebe si la itinerancia de datos está activada en su iPhone siguiendo estos pasos:</p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <p>Abra <strong>Ajustes</strong> en su iPhone.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <p>Pulse en <strong>Datos móviles → Opciones de datos móviles</strong>.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <p>Compruebe si el interruptor de <strong>Itinerancia de datos</strong> está en verde (activado).</p>
+        </div>
+      </div>
+      <div class="options">
+        <button class="btn yes" onclick="go('roaming_problemas2.html')">✔ Sí, está activada</button>
+        <button class="btn no" onclick="go('roaming_activar.html')">✖ No, está desactivada</button>
+      </div>
+      <hr>
+      <div class="nav-footer">
+        <button class="btn-back" onclick="go('roaming_so.html')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Volver al paso anterior
+        </button>
+        <button class="btn-home" onclick="go('presentacion.html')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          Ir al inicio
+        </button>
+      </div>
+    </div>
+  </main>
+  <footer>Hecho con ganas por tres estudiantes de Informática &mdash; EasyAssist &copy; 2025</footer>
+  <script>
+    function go(url) { document.body.classList.add("fade-out"); setTimeout(() => { window.location.href = url; }, 300); }
+  </script>
+</body>
+</html>

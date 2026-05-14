@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consejos antes de viajar | EasyAssist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --accent-border: #bfdbfe;
+      --text: #0f172a;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --green: #16a34a;
+      --green-light: #f0fdf4;
+      --green-border: #bbf7d0;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
+      --amber-border: #fde68a;
+      --red: #dc2626;
+      --red-light: #fef2f2;
+      --red-border: #fecaca;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards 0.1s;
+      transition: opacity 0.3s ease;
+    }
+
+    body.fade-out { opacity: 0 !important; animation: none; }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      border-bottom: 1px solid var(--border);
+      background: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .nav-logo { text-decoration: none; display: flex; align-items: center; }
+    .nav-logo img { height: 36px; width: auto; }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-back:hover { background: var(--accent-light); color: var(--accent); }
+
+    /* MAIN */
+    main {
+      flex: 1;
+      padding: 60px 32px;
+      max-width: 680px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .step-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--accent-light);
+      border: 1px solid var(--accent-border);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      margin: 0 auto 24px;
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(28px, 4vw, 38px);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .hero p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.7;
+    max-width: 700px;
+    margin: 0 auto;
+    white-space: nowrap;
+    }
+
+    /* SECCIÓN */
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    /* TARJETAS */
+    .info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .info-card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .card-icon.green { background: var(--green-light); border: 1px solid var(--green-border); }
+    .card-icon.amber { background: var(--amber-light); border: 1px solid var(--amber-border); }
+    .card-icon.blue  { background: var(--accent-light); border: 1px solid var(--accent-border); }
+
+    .card-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      letter-spacing: -0.3px;
+      color: var(--text);
+    }
+
+    .card-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .info-card p {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .info-card p:last-child { margin-bottom: 0; }
+
+    .info-card strong { color: var(--text); }
+
+    /* CHIPS DENTRO DE TARJETA */
+    .chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .chip {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 12px;
+      border-radius: 99px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    /* PASOS DENTRO DE TARJETA */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+    }
+
+    .step-num {
+      width: 24px;
+      height: 24px;
+      background: var(--accent);
+      color: white;
+      border-radius: 99px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-item p { font-size: 13px; color: var(--text); line-height: 1.6; padding-top: 2px; margin: 0; }
+
+    /* CAJA AVISO COMPAÑÍA */
+    .company-box {
+      background: var(--red-light);
+      border: 1px solid var(--red-border);
+      border-left: 4px solid var(--red);
+      border-radius: 0 12px 12px 0;
+      padding: 16px 20px;
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .company-box p { font-size: 13px; color: #991b1b; line-height: 1.7; margin: 0; }
+
+    /* CAJA TIP VERDE */
+    .tip-green {
+      background: var(--green-light);
+      border: 1px solid var(--green-border);
+      border-left: 4px solid var(--green);
+      border-radius: 0 12px 12px 0;
+      padding: 14px 18px;
+      margin-top: 16px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .tip-green p { font-size: 13px; color: #14532d; line-height: 1.7; margin: 0; }
+
+    /* DIVIDER */
+    .section-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    /* BOTÓN VOLVER */
+    .btn-back-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-back-main:hover {
+      background: var(--accent-light);
+      color: var(--accent);
+      border-color: var(--accent-border);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 48px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      background: white;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="presentacion.html" class="nav-logo">
+      <img src="imagenes/easyassist.png" alt="EasyAssist">
+    </a>
+    <button class="nav-back" onclick="go('roaming.html')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver
+    </button>
+  </nav>
+
+  <main>
+
+    <div class="hero">
+      <div class="step-icon">✈️</div>
+      <h1>Consejos antes de viajar</h1>
+      <p>Todo lo que debe saber sobre la conectividad en el extranjero antes de salir de casa.</p>
+    </div>
+
+    <!-- DENTRO DE LA UE -->
+    <p class="section-label">Destino dentro de Europa</p>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="card-icon green">🇪🇺</div>
+        <div>
+          <div class="card-title">Viaje dentro de la UE</div>
+          <div class="card-subtitle">Sin costes adicionales de roaming</div>
+        </div>
+      </div>
+      <p>Desde 2017, el roaming en la Unión Europea está regulado bajo la política <strong>"Roam Like At Home"</strong>. Cuando viaje a otro país de la UE, sus llamadas, SMS y datos se cobrarán exactamente igual que si estuviera en España, según su tarifa contratada. No hay recargos adicionales por estar en el extranjero.</p>
+      <p>Tenga en cuenta que si llama a un número de otro país de la UE <strong>desde España</strong> (sin estar en roaming), eso sí puede tener un coste adicional como llamada internacional. La regulación de la UE establece un máximo de 0,019€/minuto y 0,06€/SMS para esas llamadas entre países.</p>
+
+      <div class="tip-green">
+        <span>✅</span>
+        <p>Solo asegúrese de tener la <strong>itinerancia de datos activada</strong> en su dispositivo antes de salir. No necesita contratar ningún bono adicional.</p>
+      </div>
+
+      <div class="chip-list">
+        <span class="chip">🇩🇪 Alemania</span>
+        <span class="chip">🇫🇷 Francia</span>
+        <span class="chip">🇮🇹 Italia</span>
+        <span class="chip">🇵🇹 Portugal</span>
+        <span class="chip">🇬🇷 Grecia</span>
+        <span class="chip">🇳🇴 Noruega</span>
+        <span class="chip">+ todos los países UE</span>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- FUERA DE LA UE -->
+    <p class="section-label">Destino fuera de Europa</p>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="card-icon amber">🌍</div>
+        <div>
+          <div class="card-title">Viaje fuera de la UE</div>
+          <div class="card-subtitle">Puede haber costes elevados</div>
+        </div>
+      </div>
+      <p>Fuera de la Unión Europea el roaming <strong>no está regulado</strong> y puede generar cargos muy elevados en su factura. Le recomendamos prepararse antes de salir.</p>
+      <p>Tiene varias opciones para conectarse sin sorpresas:</p>
+
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <p><strong>Bono internacional:</strong> contacte con su compañía antes de viajar y contrate un bono específico para el país de destino. Suele ser la opción más cómoda.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <p><strong>SIM local:</strong> compre una tarjeta SIM en el país de destino. Suele ser más económico para estancias largas. Necesitará que su móvil esté desbloqueado.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <p><strong>eSIM de viaje:</strong> contrate una eSIM digital para su destino antes de salir, sin necesidad de cambiar la tarjeta física. Ideal para iPhone XS en adelante.</p>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+
+    <!-- eSIM -->
+    <p class="section-label">Tecnología eSIM</p>
+
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="card-icon blue">📲</div>
+        <div>
+          <div class="card-title">¿Qué es una eSIM?</div>
+          <div class="card-subtitle">SIM digital integrada en el dispositivo</div>
+        </div>
+      </div>
+      <p>Una <strong>eSIM</strong> es una tarjeta SIM digital que no necesita soporte físico. Está integrada en su iPhone y permite activar una línea de forma completamente digital, sin ir a ninguna tienda.</p>
+      <p>Es especialmente útil para viajes al extranjero, ya que puede contratar un plan de datos local desde casa y activarlo nada más llegar al destino, manteniendo a la vez su número español.</p>
+
+      <p><strong>Cómo activar una eSIM en iPhone:</strong></p>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <p>Vaya a <strong>Ajustes → Datos móviles → Añadir plan</strong>.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <p>Escanee el código QR que le proporcionará su operador o introduzca los datos manualmente.</p>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <p>Siga las instrucciones en pantalla para completar la activación.</p>
+        </div>
+      </div>
+
+      <div class="company-box">
+        <span>📞</span>
+        <p>Si tiene <strong>problemas con su eSIM</strong> (no se activa, da error o no aparece señal), le recomendamos contactar directamente con su compañía. Cada operador tiene un proceso de activación diferente y puede requerir asistencia personalizada.</p>
+      </div>
+    </div>
+
+    <button class="btn-back-main" onclick="go('roaming.html')">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Volver a Roaming
+    </button>
+
+  </main>
+
+  <footer>Hecho con ganas por tres estudiantes de Informática &mdash; EasyAssist &copy; 2025</footer>
+
+  <script>
+    function go(url) {
+      document.body.classList.add("fade-out");
+      setTimeout(() => { window.location.href = url; }, 300);
+    }
+  </script>
+</body>
+</html>
