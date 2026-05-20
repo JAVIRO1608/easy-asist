@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verificar cables | EasyAssist</title>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Verificación Samsung | EasyAssist</title>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
   <style>
     *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-    :root{--accent:#2563eb;--accent-light:#eff6ff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc;--card:#fff;--green:#16a34a;--red:#dc2626}
+    :root{--accent:#2563eb;--accent-light:#eff6ff;--accent-border:#bfdbfe;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc;--card:#fff;--green:#16a34a;--green-light:#f0fdf4;--green-border:#bbf7d0;--red:#dc2626}
     body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;opacity:0;animation:fadeIn 0.5s ease forwards 0.1s;transition:opacity 0.3s ease}
     body.fade-out{opacity:0!important;animation:none}
     @keyframes fadeIn{to{opacity:1}}
@@ -22,10 +21,11 @@
     .step-dot{width:8px;height:8px;border-radius:99px;background:var(--border)}
     .step-dot.done{background:var(--green)}
     .step-dot.active{background:var(--accent);width:24px}
-    .step-icon{width:64px;height:64px;background:var(--accent-light);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 24px}
+    .step-icon{width:64px;height:64px;background:var(--green-light);border:1px solid var(--green-border);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 24px}
+    .brand-badge{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--accent);background:var(--accent-light);border:1px solid var(--accent-border);border-radius:99px;padding:4px 12px;margin-bottom:12px}
     .step-label{font-size:12px;font-weight:600;color:var(--accent);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px}
     h1{font-family:'DM Serif Display',serif;font-size:clamp(24px,4vw,32px);letter-spacing:-0.5px;margin-bottom:12px}
-    .subtitle{font-size:16px;color:var(--muted);line-height:1.7;margin-bottom:32px}
+    .subtitle{font-size:16px;color:var(--muted);line-height:1.75;margin-bottom:32px}
     .options{display:flex;flex-direction:column;gap:12px;margin-bottom:28px}
     .btn{width:100%;padding:16px 20px;border:1px solid transparent;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'DM Sans',sans-serif;transition:transform 0.15s,box-shadow 0.15s,background 0.15s}
     .btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,0.1)}
@@ -45,36 +45,30 @@
 <body>
   <nav>
     <a href="../general/presentacion.html" class="nav-logo"><img src="../imagenes/easyassist.png" alt="EasyAssist"></a>
-    <button class="nav-back" onclick="navegar(10,'volver')">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      Volver
+    <button class="nav-back" onclick="navegar(46,'volver')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Volver
     </button>
   </nav>
   <main><div class="card">
     <div class="progress">
-      <div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot active"></div><div class="step-dot"></div>
+      <div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot done"></div><div class="step-dot active"></div>
     </div>
-    <div class="step-icon">🔌</div>
-    <p class="step-label">Paso 3 de 4 · Cableado</p>
-    <h1>Revise los cables del router</h1>
-    <p class="subtitle">Desconecte el cable y vuelva a conectarlo. Asegúrese de que encaje bien y escuche un pequeño "clic".</p>
+    <div class="step-icon">✅</div>
+    <div class="brand-badge">🟠 Xiaomi · MIUI / HyperOS</div>
+    <p class="step-label">Verificación final</p>
+    <h1>¿Se ha resuelto el problema?</h1>
+    <p class="subtitle">Tras seguir todos los pasos, ¿dispone ya de conexión a internet con la itinerancia?</p>
     <div class="options">
-      <button class="btn yes" onclick="navegar(10,'continuar')">✔ Ya lo he revisado, continuar</button>
+      <button class="btn yes" onclick="navegar(46,'si')">✔ Sí, ya tengo conexión</button>
+      <button class="btn no" onclick="navegar(46,'no')">✖ No, el problema persiste</button>
     </div>
     <hr>
     <div class="nav-footer">
-      <button class="btn-back" onclick="navegar(10,'volver')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-        Volver al paso anterior
-      </button>
-      <button class="btn-home" onclick="navegar(1,'inicio')">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Ir al inicio
-      </button>
+      <button class="btn-back" onclick="navegar(46,'volver')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Volver al paso anterior</button>
+      <button class="btn-home" onclick="navegar(1,'inicio')"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Ir al inicio</button>
     </div>
   </div></main>
   <footer>Hecho con ganas por tres estudiantes de Informática &mdash; EasyAssist &copy; 2025</footer>
   <script src="../js/navegacion.js"></script>
   <script>function go(url){document.body.classList.add("fade-out");setTimeout(()=>{window.location.href=url},300)}</script>
-</body>
-</html>
+</body></html>

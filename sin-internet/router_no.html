@@ -294,10 +294,10 @@
 <body>
 
   <nav>
-    <a href="presentacion.html" class="nav-logo">
-      <img src="imagenes/easyassist.png" alt="EasyAssist">
+    <a href="../general/presentacion.html" class="nav-logo">
+      <img src="../imagenes/easyassist.png" alt="EasyAssist">
     </a>
-    <button class="nav-back" onclick="go('internet.html')">
+    <button class="nav-back" onclick="navegar(9,'continuar')">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
         <path d="M19 12H5M12 19l-7-7 7-7"/>
       </svg>
@@ -341,7 +341,7 @@
         <p>Si tras encenderlo las luces siguen sin aparecer, pruebe a conectarlo a otro enchufe para descartar un problema eléctrico.</p>
       </div>
 
-      <button class="btn-continue" onclick="go('internet.html')">
+      <button class="btn-continue" onclick="navegar(9,'continuar')">
         Ya está encendido, continuar
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M5 12h14M12 5l7 7-7 7"/>
@@ -350,7 +350,7 @@
 
       <hr>
 
-      <button class="btn-back" onclick="go('internet.html')">
+      <button class="btn-back" onclick="navegar(9,'continuar')">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
@@ -364,6 +364,7 @@
     Hecho con ganas por tres estudiantes de Informática &mdash; EasyAssist &copy; 2025
   </footer>
 
+  <script src="../js/navegacion.js"></script>
   <script>
     function go(url) {
       document.body.classList.add("fade-out");

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resultado del test | EasyAssist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--accent:#2563eb;--accent-light:#eff6ff;--text:#0f172a;--muted:#64748b;--border:#e2e8f0;--bg:#f8fafc;--card:#fff;--green:#16a34a;--green-light:#f0fdf4;--green-border:#bbf7d0;--red:#dc2626;--red-light:#fef2f2;--red-border:#fecaca;--amber:#d97706;--amber-light:#fffbeb;--amber-border:#fde68a}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;opacity:0;animation:fadeIn 0.5s ease forwards 0.1s;transition:opacity 0.3s ease}
+    body.fade-out{opacity:0!important;animation:none}
+    @keyframes fadeIn{to{opacity:1}}
+    nav{display:flex;justify-content:center;align-items:center;padding:20px 48px;border-bottom:1px solid var(--border);background:white}
+    .nav-logo{text-decoration:none;display:flex;align-items:center}
+    .nav-logo img{height:52px;width:auto}
+    main{flex:1;display:flex;align-items:center;justify-content:center;padding:60px 32px}
+    .card{border-radius:20px;padding:48px 40px;width:100%;max-width:480px;text-align:center}
+    .card.bueno{background:var(--card);border:1px solid var(--green-border);box-shadow:0 4px 24px rgba(22,163,74,0.07)}
+    .card.malo{background:var(--card);border:1px solid var(--border);box-shadow:0 4px 24px rgba(0,0,0,0.05)}
+    .result-icon{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 28px;animation:popIn 0.4s cubic-bezier(0.175,0.885,0.32,1.275) forwards 0.3s;opacity:0;transform:scale(0.5)}
+    @keyframes popIn{to{opacity:1;transform:scale(1)}}
+    .result-icon.bueno{background:var(--green-light);border:2px solid var(--green-border)}
+    .result-icon.malo{background:var(--red-light);border:2px solid var(--red-border)}
+    .step-label-green{font-size:12px;font-weight:600;color:var(--green);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px}
+    .step-label-red{font-size:12px;font-weight:600;color:var(--red);text-transform:uppercase;letter-spacing:0.8px;margin-bottom:10px}
+    h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,4vw,36px);letter-spacing:-0.5px;margin-bottom:14px}
+    .subtitle{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:28px;max-width:360px;margin-left:auto;margin-right:auto}
+    .summary-box{border-radius:12px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:12px;text-align:left}
+    .summary-box.green{background:var(--green-light);border:1px solid var(--green-border)}
+    .summary-box.red{background:var(--red-light);border:1px solid var(--red-border)}
+    .summary-box p{font-size:14px;font-weight:600;line-height:1.5}
+    .summary-box.green p{color:var(--green)}
+    .summary-box.red p{color:var(--red)}
+    .steps{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;text-align:left}
+    .step-item{display:flex;align-items:flex-start;gap:14px;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+    .step-icon-sm{font-size:20px;flex-shrink:0;margin-top:1px}
+    .step-item p{font-size:14px;color:var(--text);line-height:1.6}
+    .btn-home-main{width:100%;padding:16px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;background:var(--accent);color:white;border:none;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px;transition:background 0.2s,transform 0.15s}
+    .btn-home-main:hover{background:#1d4ed8;transform:translateY(-2px)}
+    .btn-retry{width:100%;padding:14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;background:none;border:1px solid var(--border);border-radius:12px;cursor:pointer;color:var(--muted);margin-bottom:20px;transition:background 0.2s,color 0.2s}
+    .btn-retry:hover{background:var(--accent-light);color:var(--accent);border-color:var(--accent-border)}
+    .footer-note{padding-top:20px;border-top:1px solid var(--border);font-size:13px;color:var(--muted)}
+    footer{border-top:1px solid var(--border);padding:20px 48px;text-align:center;font-size:13px;color:var(--muted);background:white}
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="../general/presentacion.html" class="nav-logo"><img src="../imagenes/easyassist.png" alt="EasyAssist"></a>
+  </nav>
+  <main>
+    <div class="card" id="card">
+      <div class="result-icon" id="icon"></div>
+      <p id="label"></p>
+      <h1 id="title"></h1>
+      <p class="subtitle" id="subtitle"></p>
+      <div class="summary-box" id="summary-box">
+        <span style="font-size:22px" id="summary-icon"></span>
+        <p id="summary-text"></p>
+      </div>
+      <div class="steps" id="steps"></div>
+      <button class="btn-home-main" onclick="navegar(1,'inicio')">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Volver al inicio
+      </button>
+      <button class="btn-retry" onclick="navegar(72,'volver')">Repetir el test</button>
+      <div class="footer-note">Si el problema persiste, no dude en consultarnos de nuevo.</div>
+    </div>
+  </main>
+  <footer>Hecho con ganas por tres estudiantes de Informática &mdash; EasyAssist &copy; 2025</footer>
+  <script src="../js/navegacion.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const resultado = params.get('resultado');
+    const bueno = resultado !== 'malo';
+
+    const card = document.getElementById('card');
+    const icon = document.getElementById('icon');
+    const label = document.getElementById('label');
+    const title = document.getElementById('title');
+    const subtitle = document.getElementById('subtitle');
+    const summaryBox = document.getElementById('summary-box');
+    const summaryIcon = document.getElementById('summary-icon');
+    const summaryText = document.getElementById('summary-text');
+    const steps = document.getElementById('steps');
+
+    if (bueno) {
+      card.classList.add('bueno');
+      icon.classList.add('bueno');
+      icon.textContent = '✓';
+      label.className = 'step-label-green';
+      label.textContent = 'Test completado';
+      title.textContent = 'Su conexión funciona correctamente';
+      subtitle.textContent = 'Los valores obtenidos son adecuados para un uso normal de internet. No parece haber ningún problema en su línea.';
+      summaryBox.classList.add('green');
+      summaryIcon.textContent = '🌐';
+      summaryText.textContent = 'Su velocidad de bajada, subida y ping están dentro de los valores esperados.';
+      steps.innerHTML = `
+        <div class="step-item"><span class="step-icon-sm">✅</span><p>Si sigue experimentando lentitud puntual, puede deberse a congestión en la red a ciertas horas del día. Es normal y suele resolverse solo.</p></div>
+        <div class="step-item"><span class="step-icon-sm">💡</span><p>Si el problema persiste durante horas, pruebe a reiniciar el router y repita el test.</p></div>
+      `;
+    } else {
+      card.classList.add('malo');
+      icon.classList.add('malo');
+      icon.textContent = '!';
+      label.className = 'step-label-red';
+      label.textContent = 'Velocidad baja detectada';
+      title.textContent = 'Contacte con su compañía';
+      subtitle.textContent = 'Los valores obtenidos están por debajo de lo esperado. Es posible que la velocidad contratada no esté llegando correctamente a su domicilio.';
+      summaryBox.classList.add('red');
+      summaryIcon.textContent = '⚠️';
+      summaryText.textContent = 'Su velocidad es significativamente inferior a la que debería recibir según su tarifa contratada.';
+      steps.innerHTML = `
+        <div class="step-item"><span class="step-icon-sm">📞</span><p>Llame al servicio de atención al cliente de su compañía de internet e informe de que la velocidad recibida es muy inferior a la contratada.</p></div>
+        <div class="step-item"><span class="step-icon-sm">📋</span><p>Indíqueles los valores exactos del test: velocidad de bajada, subida y ping. Anótelos antes de llamar.</p></div>
+        <div class="step-item"><span class="step-icon-sm">📄</span><p>Solicite que revisen el estado de su línea y que comprueben si hay alguna incidencia o degradación en el servicio.</p></div>
+        <div class="step-item"><span class="step-icon-sm">🔄</span><p>Si tiene contratada una velocidad superior a 100 Mbps y está recibiendo menos de 30 Mbps por cable, tiene derecho a reclamar formalmente.</p></div>
+      `;
+    }
+
+    function go(url){document.body.classList.add("fade-out");setTimeout(()=>{window.location.href=url},300)}
+  </script>
+</body>
+</html>

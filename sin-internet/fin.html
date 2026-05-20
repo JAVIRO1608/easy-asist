@@ -211,8 +211,8 @@
 <body>
 
   <nav>
-    <a href="presentacion.html" class="nav-logo">
-      <img src="imagenes/easyassist.png" alt="EasyAssist">
+    <a href="../general/presentacion.html" class="nav-logo">
+      <img src="../imagenes/easyassist.png" alt="EasyAssist">
     </a>
   </nav>
 
@@ -234,7 +234,7 @@
         <p>Su conexión a internet se ha restablecido correctamente.</p>
       </div>
 
-      <button class="btn-finish" onclick="go('presentacion.html')">
+      <button class="btn-finish" onclick="navegar(22,'inicio')">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
         </svg>
@@ -253,6 +253,7 @@
     Hecho con ganas por tres estudiantes de Informática &mdash; EasyAssist &copy; 2025
   </footer>
 
+  <script src="../js/navegacion.js"></script>
   <script>
     function go(url) {
       document.body.classList.add("fade-out");
