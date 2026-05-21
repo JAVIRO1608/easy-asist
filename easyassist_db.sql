@@ -253,3 +253,11 @@ INSERT INTO transiciones (pagina_actual_id, boton, pagina_destino_id) VALUES
   -- datos_xiaomi_sim volver según tipo
   (66, 'volver_sin',    64),
   (66, 'volver_lento',  65);
+
+-- Transiciones speedtest corregidas/añadidas
+INSERT INTO transiciones (pagina_actual_id, boton, pagina_destino_id) VALUES
+  (70, 'volver',    2),   -- speedtest → seleccion
+  (71, 'volver',   70),   -- speedtest_cable → speedtest
+  (71, 'wifi',     72),   -- speedtest_cable sin cable → speedtest_test
+  (72, 'volver',   71),   -- speedtest_test → speedtest_cable
+  (73, 'volver',   72);   -- speedtest_resultado → speedtest_test
