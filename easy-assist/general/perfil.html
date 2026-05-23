@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil | EasyAssist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #2563eb; --border: #e2e8f0; --bg: #f8fafc; --text: #0f172a; --muted: #64748b; --red: #dc2626; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); padding: 40px 20px; }
+    .container { max-width: 800px; margin: 0 auto; display: flex; flex-direction: column; gap: 32px; }
+    .header-box { display: flex; justify-content: space-between; align-items: center; }
+    h1 { font-family: 'DM Serif Display', serif; font-size: 36px; }
+    .btn-back { padding: 10px 16px; background: white; border: 1px solid var(--border); border-radius: 8px; text-decoration: none; color: var(--text); font-weight: 500; font-size: 14px; }
+    .card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 28px; box-shadow: 0 4px 12px rgba(0,0,0,0.01); }
+    h2 { font-size: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+    .info-item label { font-size: 13px; color: var(--muted); font-weight: 500; text-transform: uppercase; }
+    .info-item p { font-size: 16px; font-weight: 700; margin-top: 4px; }
+    .history-table { width: 100%; border-collapse: collapse; text-align: left; margin-top: 10px; }
+    .history-table th, .history-table td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+    .history-table th { color: var(--muted); font-weight: 500; }
+    
+    /* NUEVOS ESTILOS: Remarcado para filas que contienen soluciones finales */
+    .row-solucion { 
+      background-color: #f0fdf4 !important; /* Fondo verde muy suave */
+    }
+    .badge-solucion {
+      background: #bbf7d0 !important; 
+      color: #166534 !important; 
+      font-weight: 700;
+      border: 1px solid #86efac;
+    }
+
+    .btn-delete { background: #fef2f2; color: var(--red); border: 1px solid #fca5a5; padding: 12px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; }
+    .btn-delete:hover { background: #fee2e2; }
+    .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15,23,42,0.6); display: flex; align-items: center; justify-content: center; display: none; }
+    .modal-content { background: white; padding: 32px; border-radius: 16px; width: 100%; max-width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
+    .modal-content input { width: 100%; padding: 12px; border: 1px solid var(--border); border-radius: 8px; margin: 16px 0; font-size: 15px; }
+    .modal-actions { display: flex; gap: 12px; justify-content: center; }
+    .btn-modal { padding: 10px 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-family: inherit; border: none; }
+    .btn-modal.confirm { background: var(--red); color: white; }
+    .btn-modal.cancel { background: var(--bg); color: var(--text); border: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="header-box">
+      <h1>Panel de Usuario</h1>
+      <a href="presentacion.html" class="btn-back">← Volver al Inicio</a>
+    </div>
+
+    <div class="card">
+      <h2>Información Personal</h2>
+      <div class="info-grid">
+        <div class="info-item">
+          <label>Nombre de Usuario</label>
+          <p id="u-name">...</p>
+        </div>
+        <div class="info-item">
+          <label>Correo Electrónico</label>
+          <p id="u-email">...</p>
+        </div>
+        <div class="info-item">
+          <label>Fecha de Registro</label>
+          <p id="u-date">...</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Soluciones e Historial de Rutas Seguidas</h2>
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Pantalla de Diagnóstico</th>
+            <th>Acción Pulsada</th>
+            <th>Fecha/Hora</th>
+          </tr>
+        </thead>
+        <tbody id="history-rows">
+          <tr>
+            <td colspan="3" style="color:var(--muted); text-align:center;">Cargando tus rutas guardadas...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card" style="border-color: #fca5a5;">
+      <h2>Eliminar Cuenta Permanentemente</h2>
+      <p style="font-size: 14px; color: var(--muted); margin-bottom: 16px;">Esta acción borrará irrevocablemente tu usuario y todo tu historial de rutas del servidor.</p>
+      <button class="btn-delete" onclick="openModal()">Eliminar Mi Cuenta</button>
+    </div>
+  </div>
+
+  <div class="modal" id="delete-modal">
+    <div class="modal-content">
+      <h3>Confirmar Eliminación</h3>
+      <p style="font-size:14px; color:var(--muted); margin-top:8px;">Introduce tu contraseña para verificar tu identidad:</p>
+      <input type="password" id="confirm-password" placeholder="Tu contraseña actual">
+      <div class="modal-actions">
+        <button class="btn-modal cancel" onclick="closeModal()">Cancelar</button>
+        <button class="btn-modal confirm" onclick="confirmDelete()">Confirmar y Borrar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", loadProfileData);
+
+    async function loadProfileData() {
+      try {
+        // Petición nativa con credenciales activas del navegador
+        const res = await fetch('../php/auth_check.php', { credentials: 'include' });
+        const data = await res.json();
+
+        if (!data.logged) {
+          window.location.href = 'login.html';
+          return;
+        }
+
+        document.getElementById('u-name').textContent = data.user.name;
+        document.getElementById('u-email').textContent = data.user.email;
+        
+        const fecha = new Date(data.user.creado_en);
+        document.getElementById('u-date').textContent = fecha.toLocaleDateString() + ' ' + fecha.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+
+        const tbody = document.getElementById('history-rows');
+        tbody.innerHTML = '';
+
+        if(data.historial && data.historial.length > 0) {
+          data.historial.forEach(row => {
+            const tr = document.createElement('tr');
+            const fHist = new Date(row.creado_en);
+            
+            // FILTRO DE DETECCIÓN: Comprobamos si es un paso común o una solución final
+            const textoPagina = row.pagina_nombre.toLowerCase();
+            const textoBoton = row.boton_pulsado.toLowerCase();
+            
+            // Si la fila contiene palabras clave asociadas a un desenlace/solución final
+            if (textoPagina.includes('solucion') || textoPagina.includes('final') || textoBoton.includes('finalizar') || textoBoton.includes('solucion')) {
+              tr.className = 'row-solucion'; // Aplicamos clase de fila destacada verde
+              
+              tr.innerHTML = `
+                <td><strong>✨ ${escapeHTML(row.pagina_nombre)}</strong></td>
+                <td><code class="badge-solucion" style="background:#f1f5f9; padding:4px 8px; border-radius:4px;">${escapeHTML(row.boton_pulsado.toUpperCase())}</code></td>
+                <td>${fHist.toLocaleDateString()} ${fHist.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+              `;
+            } else {
+              // Fila de navegación común estándar
+              tr.innerHTML = `
+                <td>${escapeHTML(row.pagina_nombre)}</td>
+                <td><code style="background:#f1f5f9; padding:4px 8px; border-radius:4px;">${escapeHTML(row.boton_pulsado.toUpperCase())}</code></td>
+                <td>${fHist.toLocaleDateString()} ${fHist.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</td>
+              `;
+            }
+            
+            tbody.appendChild(tr);
+          });
+        } else {
+          tbody.innerHTML = `<tr><td colspan="3" style="color:var(--muted); text-align:center;">No has interactuado con ningún diagnóstico aún.</td></tr>`;
+        }
+
+      } catch (e) {
+        console.error(e);
+        alert("Error de comunicación al leer el perfil.");
+      }
+    }
+
+    function openModal() { document.getElementById('delete-modal').style.display = 'flex'; }
+    function closeModal() { document.getElementById('delete-modal').style.display = 'none'; }
+
+    async function confirmDelete() {
+      const pass = document.getElementById('confirm-password').value;
+      if(!pass) { alert("Debes rellenar el campo de contraseña."); return; }
+
+      try {
+        const res = await fetch('../php/eliminar_cuenta.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pass })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.status === 'success') {
+          alert("Tu cuenta ha sido eliminada del servidor.");
+          window.location.href = 'presentacion.html';
+        } else {
+          alert(data.message || "No se pudo eliminar la cuenta.");
+        }
+      } catch (e) {
+        alert("Error de red al procesar la solicitud.");
+      }
+    }
+
+    // Prevención de inyección de código
+    function escapeHTML(str) {
+      if (!str) return '';
+      return str.replace(/[&<>'"]/g, 
+        tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+      );
+    }
+  </script>
+</body>
+</html>

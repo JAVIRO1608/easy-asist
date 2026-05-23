@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Presentación | EasyAssist</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --accent: #2563eb; --border: #e2e8f0; --bg: #f8fafc; --text: #0f172a; --muted: #64748b; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; border-bottom: 1px solid var(--border); background: white; }
+    .nav-logo { font-size: 22px; color: var(--accent); text-decoration: none; font-weight: bold; }
+    .auth-area { display: flex; gap: 12px; align-items: center; }
+    .btn-nav { padding: 10px 18px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; cursor: pointer; font-family: inherit; transition: background 0.2s; }
+    .btn-nav.outline { border: 1px solid var(--border); color: var(--text); background: none; }
+    .btn-nav.outline:hover { background: #f1f5f9; }
+    .btn-nav.solid { background: var(--accent); color: white; border: none; }
+    .btn-nav.solid:hover { background: #1d4ed8; }
+    .profile-link { display: flex; align-items: center; gap: 8px; font-weight: 500; color: var(--text); text-decoration: none; background: #f1f5f9; padding: 8px 16px; border-radius: 20px; transition: background 0.2s; }
+    .profile-link:hover { background: #e2e8f0; }
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px; text-align: center; }
+    .hero { max-width: 600px; }
+    h1 { font-size: 44px; margin-bottom: 16px; font-weight: 800; }
+    p { color: var(--muted); font-size: 18px; line-height: 1.6; margin-bottom: 32px; }
+    .btn-start { background: var(--accent); color: white; padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 700; display: inline-block; box-shadow: 0 4px 12px rgba(37,99,235,0.2); transition: background 0.2s; }
+    .btn-start:hover { background: #1d4ed8; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="presentacion.html" class="nav-logo">EasyAssist</a>
+    <div class="auth-area" id="auth-zone">
+      <span style="color: var(--muted); font-size: 14px;">Comprobando sesión...</span>
+    </div>
+  </nav>
+
+  <main>
+    <div class="hero">
+      <h1>Asistente Técnico Inteligente</h1>
+      <p>Te ayudamos a resolver problemas de conectividad, enrutamiento, roaming y configuración de datos móviles paso a paso sin complicaciones.</p>
+      <a href="seleccion.html" class="btn-start">Comenzar Diagnóstico</a>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", async () => {
+      const authZone = document.getElementById('auth-zone');
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 1500);
+
+      try {
+        const res = await fetch('../php/auth_check.php', { 
+          signal: controller.signal,
+          credentials: 'include' 
+        });
+        
+        clearTimeout(timeoutId);
+        if (!res.ok) throw new Error("Invalido");
+        
+        const data = await res.json();
+
+        if (data && data.logged) {
+          authZone.innerHTML = `
+            <a href="./perfil.html" class="profile-link">
+              👤 Hola, <strong>${data.user.name}</strong>
+            </a>
+            <button onclick="logout()" class="btn-nav outline">Salir</button>
+          `;
+          return;
+        }
+      } catch (e) {
+        console.warn("Modo invitado activo.");
+      }
+
+      authZone.innerHTML = `
+        <a href="login.html" class="btn-nav outline">Iniciar Sesión</a>
+        <a href="login.html" class="btn-nav solid">Registrarse</a>
+      `;
+    });
+
+    async function logout() {
+      try {
+        await fetch('../php/auth_check.php?logout=1', { credentials: 'include' });
+      } catch (e) {}
+      window.location.reload();
+    }
+  </script>
+</body>
+</html>
